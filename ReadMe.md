@@ -19,9 +19,9 @@ Du treng berre å installere eitt eksternt bibliotek, `nbformat`. For å gjere d
 pip install nbformat
 ```
 
-### Tilpassing av filformat
+### Tilpassing av lagringssted
 
-For å endre filformatet til noko anna enn `.md`, kan du modifisere denne linja i skriptet:
+For å endre lagringssted til noko anna enn samme mappe som ZIP fila kan du finne og modifisere denne linja i skriptet:
 
 ```python
 output_file = os.path.splitext(zip_file_path)[0] + '.ipynb'
