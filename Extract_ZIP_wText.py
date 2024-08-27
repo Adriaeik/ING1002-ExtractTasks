@@ -49,7 +49,13 @@ def process_notebooks(notebooks_dir, output_file):
     for root, dirs, files in os.walk(notebooks_dir):
         for file in files:
             if file.endswith(".ipynb"):
-                file_index = re.search(r'(\d+)_', file).group(1)  # Henter ut nummeret frå filnavnet
+                # Gjeninnfør regex for å hente ut nummer fra filnavnet
+                match = re.search(r'(\d+)_', file)
+                if match:
+                    file_index = match.group(1)
+                else:
+                    file_index = "0"  # Standardverdi hvis ingen nummer blir funnet
+
                 notebook_path = os.path.join(root, file)
                 tasks = extract_tasks_and_answers(notebook_path, file_index)
                 output_nb.cells.extend(tasks)

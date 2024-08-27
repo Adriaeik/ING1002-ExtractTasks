@@ -19,6 +19,7 @@ def extract_code_cells(notebook_path, file_index):
         nb = nbformat.read(f, as_version=4)
 
     tasks = []
+    task_number = 1  # Teller oppgavene i hver notebook-fil
 
     for i, cell in enumerate(nb.cells):
         if cell.cell_type == 'markdown':
@@ -30,16 +31,17 @@ def extract_code_cells(notebook_path, file_index):
                     # Hent den første kodecella rett etter markdown-cella
                     if i + 1 < len(nb.cells) and nb.cells[i + 1].cell_type == 'code':
                         code_cell = nb.cells[i + 1]
-                        # Formaterer oppgaven med filindex og bokstav i markdown (valgfritt)
-                        task_header = nbformat.v4.new_markdown_cell(source=f"### Oppgave {file_index}.{task_letter}:")
+                        # Formaterer oppgaven med filindex og task_number i markdown
+                        task_header = nbformat.v4.new_markdown_cell(source=f"### Oppgave {file_index}.{task_number}{task_letter}:")
                         tasks.append(task_header)
                         tasks.append(code_cell)
+                        task_number += 1  # Øker task_number for neste oppgave
                     break  # Når vi finner en match, kan vi hoppe til neste celle
 
     return tasks
 
 # Hovedfunksjon for å behandle en ZIP-fil og lagre resultatet som en .ipynb-fil
-def process_zip_file(zip_file_path):
+def process_zip_file(zip_file_path, index):
     temp_unzip_dir = unzip_file_to_temp(zip_file_path)
 
     try:
@@ -47,8 +49,14 @@ def process_zip_file(zip_file_path):
         for root, dirs, files in os.walk(temp_unzip_dir):
             for file in files:
                 if file.endswith(".ipynb"):
-                    file_index = re.search(r'(\d+)_', file).group(1)  # Henter ut nummeret frå filnavnet
                     notebook_path = os.path.join(root, file)
+                    # Bruker filnavn til å hente ut en unik indeks
+                    match = re.search(r'(\d+)_', file)
+                    if match:
+                        file_index = match.group(1)
+                    else:
+                        file_index = str(index)  # Bruker CSV-indeksen hvis ingen tall finnes i filnavnet
+
                     tasks = extract_code_cells(notebook_path, file_index)
                     output_nb.cells.extend(tasks)
 
@@ -64,10 +72,10 @@ def process_zip_file(zip_file_path):
 def process_csv(csv_file_path):
     with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
-        for row in reader:
+        for index, row in enumerate(reader, start=1):
             zip_file_path = row[0]  # Anta at stien til ZIP-filen er i første kolonne
             if os.path.exists(zip_file_path):
-                process_zip_file(zip_file_path)
+                process_zip_file(zip_file_path, index)
 
 # CSV-fil som inneholder stier til ZIP-filer
 csv_file_path = 'ZIP_Path.csv'
