@@ -60,7 +60,7 @@ def process_zip_file(zip_file_path, index):
                     tasks = extract_code_cells(notebook_path, file_index)
                     output_nb.cells.extend(tasks)
 
-        # Lagre resultatet som en .ipynb-fil med samme navn som ZIP-filen
+        # Lagre resultatet som en .ipynb-fil med samme navn som  ZIP-filen
         output_file = os.path.splitext(zip_file_path)[0] + '.ipynb'
         with open(output_file, 'w', encoding='utf-8') as f:
             nbformat.write(output_nb, f)

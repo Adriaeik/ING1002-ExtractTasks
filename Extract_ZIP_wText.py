@@ -84,7 +84,7 @@ def process_csv(csv_file_path):
             if os.path.exists(zip_file_path):
                 process_zip_file(zip_file_path)
 
-# CSV-fil som inneholder stier til ZIP-filer
+# CSV-fil som inneholder stier til ZIP-filer 
 csv_file_path = 'ZIP_Path.csv'
 
 # Kjør prosessen for alle ZIP-filer oppført i CSV-filen
