@@ -68,14 +68,18 @@ def process_zip_file(zip_file_path, index):
         # Slett den midlertidige mappa etter bruk
         shutil.rmtree(temp_unzip_dir)
 
-# Funksjon for å lese ZIP-fil stier fra CSV og behandle dem
+# Funksjon for å lese stien til ei mappe frå CSV og behandle alle ZIP-filene i den mappa
 def process_csv(csv_file_path):
     with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
-        for index, row in enumerate(reader, start=1):
-            zip_file_path = row[0]  # Anta at stien til ZIP-filen er i første kolonne
-            if os.path.exists(zip_file_path):
-                process_zip_file(zip_file_path, index)
+        for row in reader:
+            zip_folder_path = row[0]  # Anta at stien til mappa med ZIP-filer er i første kolonne
+            if os.path.isdir(zip_folder_path):
+                # Iterer gjennom alle .zip-filer i denne mappa
+                for file_name in os.listdir(zip_folder_path):
+                    if file_name.endswith('.zip'):
+                        zip_file_path = os.path.join(zip_folder_path, file_name)
+                        process_zip_file(zip_file_path,1)
 
 # CSV-fil som inneholder stier til ZIP-filer
 csv_file_path = 'ZIP_Path.csv'
