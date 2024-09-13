@@ -7,7 +7,7 @@ Dette prosjektet inneheld to skript:
 
 ## Bruk av programmet
 
-1. Opprett ei fil kalla `ZIP_Path.csv` og plasser den i same mappe som skripta. I denne fila legg du til stiane til ZIP-filene frå rotmappa på PC-en din, linje for linje.
+1. Opprett ei fil kalla `ZIP_Path.csv` og plasser den i same mappe som skripta. I denne fila legg du til stien til mappa med ZIP-filene frå rotmappa på PC-en din.
 2. Programmet vil deretter extracte ZIP-filene og lagre dei som `.md`-dokument med same namn som ZIP-fila, i same mappe.
 
 
