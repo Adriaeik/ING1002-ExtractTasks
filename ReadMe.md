@@ -19,7 +19,7 @@ Dette prosjektet inneheld eit skript:
    - Bygge ei ny `.ipynb` med namn lik ZIP-fila.
    - Logge resultatet til `ZIP_Report.csv` med info om totalt tal oppgåver, besvarte oppgåver, prosent og bestått/ikkje bestått.
 
-Merk: Det er ikkje støtte for automatisk nedlasting frå Blackboard, så ZIP-filene må lastast ned manuelt.
+> Note: Har ikkje funne ein brukandes måte å laste ned frå Blackboard, så ZIP-filene må lastast ned manuelt.
 
 ---
 
