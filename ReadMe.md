@@ -12,6 +12,7 @@ Dette prosjektet inneheld eit skript:
 
 1. Opprett ei fil kalla `ZIP_Path.csv` og plasser den i same mappe som skriptet.  
    I denne fila legg du inn stien til mappa som inneheld ZIP-filene du har lasta ned frå Blackboard.
+   På linje 2 legger du inn stien til zip-fil som inneholder tom oppgave (ubesvart)
 2. Programmet vil for kvar ZIP-fil:
    - Pakkje ut innhaldet.
    - Finne alle `.ipynb`-filene rekursivt.
