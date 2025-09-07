@@ -3,7 +3,7 @@
 Ekstraherer oppgåver (markdown) + første kodecelle etter kvar oppgåve frå alle
 .ipynb i ZIP-arkiv lista i ZIP_Path.csv. Éi utfil per ZIP.
 I tillegg lagar skriptet ein rapport (ZIP_Report.csv) som fortel om kvar ZIP
-har ≥ 50 % besvarte oppgåver.
+har ≥ 40 % besvarte oppgåver.
 """
 
 import os
@@ -260,7 +260,7 @@ def process_csv(csv_file_path: str):
         total_tasks = stats.get("total_tasks", 0)
         answered_tasks = stats.get("answered_tasks", 0)
         percent = (answered_tasks / total_tasks * 100.0) if total_tasks else 0.0
-        passed = total_tasks > 0 and (answered_tasks / total_tasks) >= 0.5
+        passed = total_tasks > 0 and (answered_tasks / total_tasks) >= 0.4
 
         results.append({
             "zip_file": zip_path,
